@@ -3,74 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTTP Code</title>
+    <title>Discord Clone</title>
     <style>
         body {
             margin: 0;
-            padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Gray background */
+            background: #36393f;
+            color: white;
+        }
+        .wrapper {
             display: flex;
+            height: 100vh;
         }
-
-        .sidebar {
-            width: 250px; /* Width of the sidebar */
-            background-color: #fff; /* White background */
-            border-right: 2px solid #000; /* Black border on the right */
-        }
-
-        .icon-container {
-            display: flex;
-            justify-content: center;
-            padding: 20px 0;
-            border-bottom: 2px solid #000; /* Black border at the bottom of the icons */
-        }
-
-        .icon {
-            width: 40px;
-            height: 40px;
-            background-color: #000; /* Black circular icon */
-            border-radius: 50%; /* Make it a circle */
-            margin: 10px;
-        }
-
-        .channel-sidebar {
-            padding: 20px;
-        }
-
-        .channel {
+        .server-sidebar {
+            width: 72px;
+            background: #202225;
             padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .server-button {
+            width: 48px;
+            height: 48px;
+            background-color: #36393f;
+            border-radius: 50%;
             margin-bottom: 10px;
-            background-color: #fff; /* White background for channels */
-            border-radius: 5px;
-            cursor: pointer;
         }
-
-        .channel:hover {
-            background-color: #ccc; /* Light gray background on hover */
+        .server-button img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
         }
-
-        .content {
-            flex: 1; /* Take remaining space */
+        .channel-list {
+            width: 240px;
+            background: #2f3136;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
             padding: 20px;
+            list-style: none;
+        }
+        .message-input {
+            display: flex;
+            padding: 10px;
+            background: #40444b;
+        }
+        .message-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .message-input button {
+            margin-left: 10px;
+            padding: 10px;
+            background: #5865f2;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+        .settings {
+            height: 60px;
+            background: #292b2f;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+        .settings img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="icon-container">
-            <div class="icon"></div>
-            <div class="icon"></div>
-            <div class="icon"></div>
+    <div class="wrapper">
+        <div class="server-sidebar">
+            <div class="server-button">
+                <img src="your-image-url-here" alt="Server">
+            </div>
+            <!-- Add more server buttons as needed -->
         </div>
-        <div class="channel-sidebar">
-            <div class="channel">General</div>
-            <div class="channel">Bot Commands</div>
-            <div class="channel">Media</div>
+        <div class="channel-list">
+            <h3>Channels</h3>
+            <ul id="channels">
+                <li>#general</li>
+            </ul>
+            <div class="settings">
+                <img src="your-profile-image-url-here" alt="Profile">
+                <span>User Settings</span>
+            </div>
+        </div>
+        <div class="chat-container">
+            <ul id="messages" class="messages"></ul>
+            <form id="form" class="message-input">
+                <input id="input" autocomplete="off" placeholder="Type a message...">
+                <button>Send</button>
+            </form>
         </div>
     </div>
-    <div class="content">
-        <!-- Your main content here -->
-    </div>
+
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        const messages = document.getElementById('messages');
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });
+
+        socket.on('chat message', function(msg) {
+            const item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+            messages.scrollTop = messages.scrollHeight;
+        });
+    </script>
 </body>
 </html>
