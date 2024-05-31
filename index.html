@@ -12,52 +12,54 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             color: #fff;
             text-align: center;
         }
 
-        .container {
-            max-width: 600px;
-            background: rgba(0, 0, 0, 0.5);
+        .content {
+            max-width: 900px;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 4em;
             margin-bottom: 0.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         p {
-            font-size: 1.2em;
+            font-size: 1.5em;
             margin-bottom: 1.5em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .button-group {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         .button-group a {
             text-decoration: none;
             color: #fff;
-            background: #007BFF;
-            padding: 10px 20px;
-            border-radius: 5px;
+            background: #5865F2;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1em;
             transition: background 0.3s ease;
         }
 
         .button-group a:hover {
-            background: #0056b3;
+            background: #4a5ac9;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="content">
         <h1>Monkey Cord</h1>
         <p>Monkey Cord is a chat app developed by Nightmare and other team members. It provides a seamless and enjoyable chatting experience with advanced features and robust security. Join us and be part of our growing community!</p>
         <div class="button-group">
