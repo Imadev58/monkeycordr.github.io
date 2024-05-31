@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Code</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Gray background */
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px; /* Width of the sidebar */
+            background-color: #fff; /* White background */
+            border-right: 2px solid #000; /* Black border on the right */
+        }
+
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #000; /* Black border at the bottom of the icons */
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            background-color: #000; /* Black circular icon */
+            border-radius: 50%; /* Make it a circle */
+            margin: 10px;
+        }
+
+        .channel-sidebar {
+            padding: 20px;
+        }
+
+        .channel {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff; /* White background for channels */
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .channel:hover {
+            background-color: #ccc; /* Light gray background on hover */
+        }
+
+        .content {
+            flex: 1; /* Take remaining space */
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="icon-container">
+            <div class="icon"></div>
+            <div class="icon"></div>
+            <div class="icon"></div>
+        </div>
+        <div class="channel-sidebar">
+            <div class="channel">General</div>
+            <div class="channel">Bot Commands</div>
+            <div class="channel">Media</div>
+        </div>
+    </div>
+    <div class="content">
+        <!-- Your main content here -->
+    </div>
+</body>
+</html>
