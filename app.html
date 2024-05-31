@@ -51,7 +51,6 @@
             flex: 1;
             overflow-y: auto;
             padding: 20px;
-            list-style: none;
         }
         .message-input {
             display: flex;
@@ -93,7 +92,6 @@
             <div class="server-button">
                 <img src="your-image-url-here" alt="Server">
             </div>
-            <!-- Add more server buttons as needed -->
         </div>
         <div class="channel-list">
             <h3>Channels</h3>
@@ -108,19 +106,47 @@
         <div class="chat-container">
             <ul id="messages" class="messages"></ul>
             <form id="form" class="message-input">
-                <input id="input" autocomplete="off" placeholder="Type a message...">
+                <input id="input" autocomplete="off">
                 <button>Send</button>
             </form>
         </div>
     </div>
 
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/express/4.17.1/express.min.js"></script>
     <script>
-        const socket = io();
+        const express = require('express');
+        const http = require('http');
+        const socketIo = require('socket.io');
 
-        const messages = document.getElementById('messages');
-        const form = document.getElementById('form');
-        const input = document.getElementById('input');
+        const app = express();
+        const server = http.createServer(app);
+        const io = socketIo(server);
+
+        app.use(express.static(__dirname));
+
+        io.on('connection', (socket) => {
+            console.log('a user connected');
+            
+            socket.on('chat message', (msg) => {
+                io.emit('chat message', msg);
+            });
+
+            socket.on('disconnect', () => {
+                console.log('user disconnected');
+            });
+        });
+
+        const PORT = 3000;
+        server.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+
+        var socket = io();
+
+        var messages = document.getElementById('messages');
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -131,10 +157,10 @@
         });
 
         socket.on('chat message', function(msg) {
-            const item = document.createElement('li');
+            var item = document.createElement('li');
             item.textContent = msg;
             messages.appendChild(item);
-            messages.scrollTop = messages.scrollHeight;
+            window.scrollTo(0, document.body.scrollHeight);
         });
     </script>
 </body>
